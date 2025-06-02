@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition System</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #04080F;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Container */
+        .container {
+            background: #DAE3E5;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            width: 900px;
+            height: 520px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* Left & Right Sections */
+        .left, .right {
+            flex: 1;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .left {
+            background: #BBD1EA;
+            text-align: left;
+        }
+
+        .right {
+            background: #A1C6EA;
+            text-align: center;
+        }
+
+        /* Dataset Information */
+        .left p {
+            font-size: 1rem;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        /* Form Styling */
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px;
+            background: #DAE3E5;
+            border-radius: 10px;
+            width: 85%;
+            margin: auto;
+        }
+
+        /* Custom File Upload */
+        .custom-file-upload {
+            background-color: #04080F;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .custom-file-upload:hover {
+            background-color: #222831;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Upload Button */
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        /* Image Styling */
+        img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            border-radius: 8px;
+            margin-top: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Prediction Text */
+        .prediction {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #04080F;
+            margin-top: 15px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                width: 90%;
+                height: auto;
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Left Section: Dataset Info -->
+        <div class="left">
+            <h2>Dataset Information</h2>
+            <p><strong>Number of Classes:</strong> {{ num_classes }}</p>
+            <p><strong>Training Samples:</strong> {{ num_train_samples }}</p>
+            <p><strong>Testing Samples:</strong> {{ num_test_samples }}</p>
+            <p><strong>Total Samples:</strong> {{ total_samples }}</p>
+        </div>
+
+        <!-- Right Section: Upload & Prediction -->
+        <div class="right">
+            <h2>Upload Image</h2>
+            <div class="form-container">
+                <form action="/" method="post" enctype="multipart/form-data">
+                    <label for="file-upload" class="custom-file-upload">
+                        Choose File
+                    </label>
+                    <input id="file-upload" type="file" name="file" required>
+                    <button type="submit">Upload & Predict</button>
+                </form>
+            </div>
+
+            {% if uploaded_image %}
+                <h2>Uploaded Image:</h2>
+                <img src="{{ uploaded_image }}" alt="Uploaded Image">
+                <h2 class="prediction">Predicted Class: <span>{{ prediction }}</span></h2>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
